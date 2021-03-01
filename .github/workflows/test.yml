@@ -1,0 +1,20 @@
+---
+name: Whale Plugin CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    name: Testing
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pull Images
+        run: docker-compose -f docker-compose.ci.yml pull
+      - name: Build Images
+        run: docker-compose -f docker-compose.ci.yml build app
+      - name: Run Test
+        run: |
+          docker-compose -f docker-compose.ci.yml up -d frpc frps
+          docker-compose -f docker-compose.ci.yml up app

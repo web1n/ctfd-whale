@@ -1,0 +1,5 @@
+FROM ctfd/ctfd
+USER root
+RUN pip install -r development.txt
+COPY . CTFd/plugins/ctfd-whale
+RUN pip install -r CTFd/plugins/ctfd-whale/requirements.txt

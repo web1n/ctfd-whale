@@ -1,0 +1,42 @@
+version: '3.5'
+services: 
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.ci
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./tests.py:/opt/CTFd/tests/test_whale.py
+      - ./utils:/opt/CTFd/CTFd/plugins/ctfd-whale/utils
+      - ./api.py:/opt/CTFd/CTFd/plugins/ctfd-whale/api.py
+      - ./decorators.py:/opt/CTFd/CTFd/plugins/ctfd-whale/decorators.py
+    entrypoint: ''
+    command: [
+      "python", "-m", "pytest", "-rP",
+      "--cov=CTFd", "--cov-context=test", "--cov-report=xml",
+      "--ignore-glob=\"**/node_modules/\"", "--ignore=node_modules/", "--ignore=CTFd/plugins",
+      "-W", "ignore::sqlalchemy.exc.SADeprecationWarning",
+      "-W", "ignore::sqlalchemy.exc.SAWarning",
+      "-n", "auto",
+    ]
+
+  frpc:
+    image: frankli0324/frp
+    command: [
+      "frpc",
+      "--token", "qwerasdf",
+      "--server_addr", "frps",
+      "--server_port", "7000",
+      "--admin_addr", "0.0.0.0",
+      "--admin_port", "7400",
+    ]
+
+  frps:
+    image: frankli0324/frp
+    command: [
+      "frps",
+      "--token", "qwerasdf",
+      "--bind_port", "7000",
+      "--vhost_http_port", "8080",
+      "--subdomain_host", "127.0.0.1.xip.io",
+    ]
