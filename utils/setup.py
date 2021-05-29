@@ -16,10 +16,10 @@ def setup_default_configs():
         'docker_swarm_nodes': 'linux-1',
         'docker_timeout': '3600',
         'frp_api_url': 'http://frpc:7400',
-        'frp_http_port': '8080',
+        'frp_http_port': '9123',
         'frp_http_domain_suffix': '127.0.0.1.xip.io',
-        'frp_direct_port_maximum': '10100',
-        'frp_direct_port_minimum': '10000',
+        'frp_direct_port_maximum': '9125',
+        'frp_direct_port_minimum': '9129',
         'template_http_subdomain': '{{ container.uuid }}',
         'template_chall_flag': '{{ "flag{"+uuid.uuid4()|string+"}" }}',
     }.items():
