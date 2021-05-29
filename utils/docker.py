@@ -68,7 +68,7 @@ class DockerUtils:
             image=container.challenge.docker_image,
             name=f'{container.user_id}-{container.uuid}',
             env={'FLAG': container.flag}, dns_config=docker.types.DNSConfig(nameservers=dns),
-            networks=[get_config("whale:docker_auto_connect_network", "ctfd_frp-containers")],
+            networks=[get_config("whale:docker_auto_connect_network", "ctfd_frp_containers")],
             resources=docker.types.Resources(
                 mem_limit=DockerUtils.convert_readable_text(
                     container.challenge.memory_limit),
