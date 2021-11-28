@@ -22,7 +22,7 @@ class WhaleChecks:
         credentials = get_config("whale:docker_credentials")
         if credentials and credentials.count(':') == 1:
             try:
-                client.login(*credentials.split(':'))
+                client.login(credentials.split(':')[0], credentials.split(':')[1], registry=get_config("whale:docker_registry"))
             except DockerException:
                 return f'Unable to log into docker registry, check your credentials'
         swarm = client.info()['Swarm']

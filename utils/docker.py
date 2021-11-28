@@ -45,7 +45,7 @@ class DockerUtils:
         credentials = get_config("whale:docker_credentials")
         if credentials and credentials.count(':') == 1:
             try:
-                DockerUtils.client.login(*credentials.split(':'))
+                DockerUtils.client.login(credentials.split(':')[0], credentials.split(':')[1], registry=get_config("whale:docker_registry"))
             except Exception:
                 raise WhaleError('docker.io failed to login, check your credentials')
 
