@@ -6,6 +6,7 @@
     {% for config, val in {
         "API URL": ("docker_api_url", "Docker API to connect to"),
         "Credentials": ("docker_credentials", "docker.io username and password, separated by ':'. useful for private images"),
+        "Registry": ("docker_registry", "you may need: https://registry.cn-beijing.aliyuncs.com/ or https://ccr.ccs.tencentyun.com/"),
         "Swarm Nodes": ("docker_swarm_nodes", "Will pick up one from it, You should set your node with label name=windows-* or name=linux-*. Separated by commas."),
     }.items() %}
         {% set value = get_config('whale:' + val[0]) %}
